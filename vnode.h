@@ -1,6 +1,6 @@
 #include "types.h"
 
-#include <stdlib.h>
+#include "stdlib.h"
 
 #ifndef VERLANG_NODE
 #define VERLANG_NODE

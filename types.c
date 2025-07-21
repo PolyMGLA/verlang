@@ -1,21 +1,42 @@
 #include "types.h"
 
+TokenPattern TokenPatterns[] = {
+    { TOKEN_INT,  "[0-9]+" },
+    { TOKEN_PLUS, "\\+" },
+    { TOKEN_MINUS, "-" },
+    { TOKEN_UNKNOWN, "" }
+};
+
+const char* TokenTypeChar[TOKEN_TYPE_COUNT] = {
+    [TOKEN_INT] = "TOKEN_INT",
+    [TOKEN_PLUS] = "TOKEN_PLUS",
+    [TOKEN_MINUS] = "TOKEN_MINUS",
+    [TOKEN_UNKNOWN] = "TOKEN_UNKNOWN",
+};
+
+void compile_patterns() {
+    for (int i = 0; i < TOKEN_TYPE_COUNT; i++) {
+        logf("compiling regex for %s\n", TokenTypeChar[TokenPatterns[i].type]);
+        regcomp(&TokenPatterns[i].regex, TokenPatterns[i].pattern, REG_EXTENDED);
+    }
+}
+
 TOKEN parse_token(char* _token) {
     TOKEN res;
     logf("parsing %s\n", _token);
 
-    if (!strcmp(_token, "+")) {
-        logf("type: plus\n");
+    if (!regexec(&TokenPatterns[TOKEN_PLUS].regex, _token, 0, NULL, 0)) {
         res.type = TOKEN_PLUS;
         res.val = 0;
-    } else if (!strcmp(_token, "-")) {
-        logf("type: minus\n");
+    } else if (!regexec(&TokenPatterns[TOKEN_MINUS].regex, _token, 0, NULL, 0)) {
         res.type = TOKEN_MINUS;
         res.val = 0;
-    } else {
-        logf("type: int\n");
+    } else if (!regexec(&TokenPatterns[TOKEN_INT].regex, _token, 0, NULL, 0)) {
         res.type = TOKEN_INT;
         res.val = atoi(_token);
+    } else {
+        res.type = TOKEN_UNKNOWN;
+        res.val = 0;
     }
 
     return res;
