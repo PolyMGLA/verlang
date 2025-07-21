@@ -7,26 +7,26 @@ TOKEN_LIST* lexer(FILE* fp) {
     list->size = 0;
 
     if (tokens == NULL) {
-        printf("failed to allocate memory for array\n");
-        return list;
+        verlang_raise(_InputFail, "failed to allocate memory for array\n");
     }
 
     if (!fp) {
-        printf("error while opening file\n");
-        return list;
+        verlang_raise(_InputFail, "error while opening file\n");
     }
     int last = 0;
     char _token[129];
     while (fscanf(fp, "%128s", _token) != EOF) {
         tokens[last] = parse_token(_token);
+        if (tokens[last].type == TOKEN_UNKNOWN || tokens[last].type == TOKEN_TYPE_COUNT) {
+            verlang_raise(_ForbiddenToken, TokenTypeChar[tokens[last].type]);
+        }
         last++;
 
         if (last % 128 == 0) {
             tokens = realloc(tokens, (last + 128) * sizeof(TOKEN));
 
             if (tokens == NULL) {
-                printf("failed to extend array\n");
-                return list;
+                verlang_raise(_InputFail, "failed to extend array\n");
             }
         }
     }

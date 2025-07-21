@@ -1,5 +1,6 @@
 #include "vnode.h"
 #include "lexer.h"
+#include "exceptions.h"
 
 #include "stdio.h"
 #include "stdlib.h"

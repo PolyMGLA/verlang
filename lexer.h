@@ -1,6 +1,7 @@
 #include "types.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "exceptions.h"
 
 #ifndef VERLANG_LEXER
 #define VERLANG_LEXER

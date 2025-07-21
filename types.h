@@ -3,6 +3,8 @@
 #include "string.h"
 #include "regex.h"
 
+#include "exceptions.h"
+
 #if VERLANG_LOGS
 #define logf(...) printf(__VA_ARGS__)
 #else
@@ -18,6 +20,7 @@ typedef enum {
     TOKEN_INT,
     TOKEN_PLUS,
     TOKEN_MINUS,
+    TOKEN_FUCK,
     TOKEN_UNKNOWN,
     TOKEN_TYPE_COUNT
 } TokenType;

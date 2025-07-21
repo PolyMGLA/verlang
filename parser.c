@@ -18,6 +18,7 @@ VNode* parse(TOKEN_LIST* parsed) {
                 break;
             default:
                 // ???
+                verlang_raise(_ForbiddenToken, TokenTypeChar[parsed->list[i].type]);
                 break;
         }
         if (i + 2 != parsed->size) {

@@ -1,17 +1,21 @@
 #include "types.h"
 
 TokenPattern TokenPatterns[] = {
-    { TOKEN_INT,  "[0-9]+" },
-    { TOKEN_PLUS, "\\+" },
-    { TOKEN_MINUS, "-" },
-    { TOKEN_UNKNOWN, "" }
+    { TOKEN_INT,  "^[0-9]+$" },
+    { TOKEN_PLUS, "^\\+$" },
+    { TOKEN_MINUS, "^-$" },
+    { TOKEN_FUCK, "^fuck$" },
+    { TOKEN_UNKNOWN, "" },
+    { TOKEN_TYPE_COUNT, "" },
 };
 
-const char* TokenTypeChar[TOKEN_TYPE_COUNT] = {
+const char* TokenTypeChar[TOKEN_TYPE_COUNT + 1] = {
     [TOKEN_INT] = "TOKEN_INT",
     [TOKEN_PLUS] = "TOKEN_PLUS",
     [TOKEN_MINUS] = "TOKEN_MINUS",
+    [TOKEN_FUCK] = "TOKEN_FUCK",
     [TOKEN_UNKNOWN] = "TOKEN_UNKNOWN",
+    [TOKEN_TYPE_COUNT] = "TOKEN_TYPE_COUNT",
 };
 
 void compile_patterns() {
@@ -37,6 +41,9 @@ TOKEN parse_token(char* _token) {
     } else {
         res.type = TOKEN_UNKNOWN;
         res.val = 0;
+        char buffer[strlen(_token) + 1];
+        snprintf(buffer, strlen(_token) + 19, "Unknown Token: %s", _token);
+        verlang_raise(_UnknownToken, buffer);
     }
 
     return res;
