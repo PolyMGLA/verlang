@@ -1,9 +1,11 @@
-### VerLang docs (v1.1)
+### VerLang docs (v1.3)
 
 #### Tokens
 - `TOKEN_INT` - целое число. В перспективе `BigInteger`, в коде `int`
 - `TOKEN_PLUS` - символ `+`
 - `TOKEN_MINUS` - символ `-`
+- `TOKEN_LBRACKET` - символ `(`
+- `TOKEN_RBRACKET` - символ `)`
 - `TOKEN_FUCK` - оператор `fuck`
 - `TOKEN_UNKNOWN` - токен неизвестного типа, на этапе лексера выдает исключение `_UnknownToken`, на этапе парсера `_ForbiddenToken`
 - `TOKEN_TYPE_COUNT` - пустой токен для подсчета общего кол-ва токенов. Ведет себя аналогично `TOKEN_UNKNOWN`

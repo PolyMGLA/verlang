@@ -7,11 +7,11 @@ TOKEN_LIST* lexer(FILE* fp) {
     list->size = 0;
 
     if (tokens == NULL) {
-        verlang_raise(_InputFail, "failed to allocate memory for array\n");
+        verlang_raise(_InputFail, "failed to allocate memory for array");
     }
 
     if (!fp) {
-        verlang_raise(_InputFail, "error while opening file\n");
+        verlang_raise(_InputFail, "error while opening file");
     }
     int last = 0;
     char _token[129];
@@ -26,7 +26,7 @@ TOKEN_LIST* lexer(FILE* fp) {
             tokens = realloc(tokens, (last + 128) * sizeof(TOKEN));
 
             if (tokens == NULL) {
-                verlang_raise(_InputFail, "failed to extend array\n");
+                verlang_raise(_InputFail, "failed to extend array");
             }
         }
     }

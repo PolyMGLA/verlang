@@ -6,7 +6,7 @@
 #include "exceptions.h"
 
 #if VERLANG_LOGS
-#define logf(...) printf(__VA_ARGS__)
+#define logf(...) { printf(" \e[1;30m~ " __VA_ARGS__); printf("\e[0;37m"); }
 #else
 #define logf(...)
 #endif
@@ -20,6 +20,8 @@ typedef enum {
     TOKEN_INT,
     TOKEN_PLUS,
     TOKEN_MINUS,
+    TOKEN_LBRACKET,
+    TOKEN_RBRACKET,
     TOKEN_FUCK,
     TOKEN_UNKNOWN,
     TOKEN_TYPE_COUNT
@@ -32,9 +34,8 @@ typedef struct
     regex_t regex;
 } TokenPattern;
 
-typedef struct TOKEN {
+typedef struct {
     TokenType type;
-
     VERLANG_INT val;
 } TOKEN;
 
@@ -42,7 +43,7 @@ extern TokenPattern TokenPatterns[];
 extern const char* TokenTypeChar[];
 
 void compile_patterns();
-
+int check_pattern(TokenType TOKEN, char* _token);
 TOKEN parse_token(char* _token);
 
 #endif
